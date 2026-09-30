@@ -27,8 +27,20 @@ def run_backtest(rows, minimum_prior_games=10):
     buckets = defaultdict(lambda: {"games": 0, "correct": 0})
     for home, away in game_pairs(rows):
         date = home["gameDate"]
-        hf = build_team_features(rows, home["teamId"], date, "HOME")
-        af = build_team_features(rows, away["teamId"], date, "AWAY")
+        hf = build_team_features(
+            rows,
+            home["teamId"],
+            date,
+            "HOME",
+            opponent_team_id=away["teamId"],
+        )
+        af = build_team_features(
+            rows,
+            away["teamId"],
+            date,
+            "AWAY",
+            opponent_team_id=home["teamId"],
+        )
         if min(hf["historyGamesAvailable"], af["historyGamesAvailable"]) < minimum_prior_games:
             continue
         result = predict(hf, af, home_name=home["team"], away_name=away["team"])
@@ -44,7 +56,7 @@ def run_backtest(rows, minimum_prior_games=10):
     for label in ("LOW", "MEDIUM", "HIGH"):
         b = buckets[label]
         by_confidence[label] = {"games": b["games"], "correct": b["correct"], "accuracy": round(b["correct"]/b["games"],4) if b["games"] else None}
-    return {"modelVersion":"v1-unvalidated","minimumPriorGames":minimum_prior_games,"historicalInjuriesIncluded":False,"gamesTested":total,"correct":correct,"accuracy":round(correct/total,4) if total else None,"byConfidence":by_confidence,"predictions":predictions}
+    return {"modelVersion":"v1-h2h-candidate","minimumPriorGames":minimum_prior_games,"historicalInjuriesIncluded":False,"gamesTested":total,"correct":correct,"accuracy":round(correct/total,4) if total else None,"byConfidence":by_confidence,"predictions":predictions}
 
 def main():
     parser=argparse.ArgumentParser()
