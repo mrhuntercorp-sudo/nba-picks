@@ -71,6 +71,7 @@ def build_team_features(
     team_id,
     target_date: str,
     target_location: str,
+    opponent_team_id=None,
 ) -> dict:
     cutoff = _date(target_date)
     history = [
@@ -83,6 +84,35 @@ def build_team_features(
     last10 = history[:10]
     location = str(target_location).upper()
     same_location = [r for r in history if str(r.get("homeAway")).upper() == location][:10]
+
+    h2h_last5 = []
+    if opponent_team_id is not None:
+        prior_games = []
+        games_by_id = {}
+        for row in all_rows:
+            game_id = row.get("gameId")
+            if not game_id:
+                continue
+            if str(row.get("teamId")) != str(team_id):
+                continue
+            if _date(row.get("gameDate")) >= cutoff:
+                continue
+            games_by_id.setdefault(str(game_id), []).append(row)
+        for game_id, game_rows in games_by_id.items():
+            if len(game_rows) != 2:
+                continue
+            if any(str(r.get("teamId")) == str(opponent_team_id) for r in game_rows):
+                team_row = next(
+                    (r for r in game_rows if str(r.get("teamId")) == str(team_id)),
+                    None,
+                )
+                if team_row:
+                    prior_games.append(team_row)
+        h2h_last5 = sorted(
+            prior_games,
+            key=lambda r: _date(r.get("gameDate")),
+            reverse=True,
+        )[:5]
 
     rest_days = None
     back_to_back = False
@@ -99,6 +129,7 @@ def build_team_features(
         "last5": _summary(last5),
         "last10": _summary(last10),
         "sameLocationLast10": _summary(same_location),
+        "h2hLast5": _summary(h2h_last5),
         "restDays": rest_days,
         "backToBack": back_to_back,
         "recentFourFactorInputs": _four_factor_inputs(last10),
