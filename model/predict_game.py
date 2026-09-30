@@ -11,7 +11,7 @@ IMPORTANT:
 from __future__ import annotations
 
 TEAM_WEIGHTS = {
-    "seasonWinPct": 0.25,
+    "seasonWinPct": 0.20,
     "last10WinPct": 0.20,
     "last5WinPct": 0.10,
     "sameLocationWinPct": 0.10,
@@ -19,6 +19,7 @@ TEAM_WEIGHTS = {
     "eFGPct": 0.10,
     "turnoverControl": 0.05,
     "rest": 0.05,
+    "h2hWinPct": 0.05,
 }
 
 HOME_ADVANTAGE = 2.0
@@ -33,6 +34,7 @@ def _team_score(features: dict) -> tuple[float, dict]:
     last10 = features.get("last10", {})
     last5 = features.get("last5", {})
     location = features.get("sameLocationLast10", {})
+    h2h = features.get("h2hLast5", {})
     factors = features.get("recentFourFactorInputs", {})
 
     # Normalize heterogeneous basketball features to approximately 0-100.
@@ -41,6 +43,11 @@ def _team_score(features: dict) -> tuple[float, dict]:
         "last10WinPct": 100 * float(last10.get("winPct", 0)),
         "last5WinPct": 100 * float(last5.get("winPct", 0)),
         "sameLocationWinPct": 100 * float(location.get("winPct", 0)),
+        "h2hWinPct": (
+            100 * float(h2h.get("winPct", 0))
+            if int(h2h.get("games", 0)) > 0
+            else 50.0
+        ),
         "avgPlusMinus": _clamp(50 + 2.5 * float(last10.get("avgPlusMinus", 0)), 0, 100),
         "eFGPct": _clamp(100 * float(factors.get("eFGPct", 0)), 0, 100),
         "turnoverControl": _clamp(100 - 250 * float(factors.get("turnoverRateProxy", 0)), 0, 100),
@@ -120,5 +127,5 @@ def predict(
             "finalScore": away_final,
             "components": away_components,
         },
-        "modelVersion": "v1-unvalidated",
+        "modelVersion": "v1-h2h-candidate",
     }
