@@ -21,7 +21,7 @@
     .matchup{padding:18px 15px 15px;display:grid;grid-template-columns:1fr 42px 1fr;align-items:center;gap:8px}.team{display:flex;flex-direction:column;align-items:center;text-align:center;margin:0}.team:last-child{margin-bottom:0}.team-left{display:flex;flex-direction:column;align-items:center;gap:8px}.versus{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#273bff;border:1px solid #6480ff;color:#fff;box-shadow:0 0 18px rgba(54,88,255,.28);font-size:10px;font-weight:900}.location{margin-top:7px;color:#aab5d1;font-size:11px}.team-logo{width:44px;height:44px;border-radius:50%;background:#fff;border:2px solid #35496d;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:11px;box-shadow:0 5px 14px rgba(0,0,0,.22)}.team-logo img{width:34px;height:34px;object-fit:contain}.team-name{font-weight:800;font-size:14px}.team-record{color:#8fa4c4;font-size:11px;margin-top:3px}.location{color:#aab5d1;font-size:12px}
     .analysis{border-top:1px solid #293657;padding:16px;background:rgba(8,12,24,.24)}.pick-label{color:#68dcff;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:7px}
     .pick-panel{padding:14px;border-radius:15px;background:linear-gradient(135deg,rgba(54,88,255,.22),rgba(0,190,220,.10));border:1px solid rgba(79,126,255,.58);box-shadow:inset 0 0 24px rgba(48,101,255,.07)}.pick-row{display:flex;justify-content:space-between;align-items:center;gap:12px}.pick-team{font-size:21px;font-weight:900;letter-spacing:-.35px}.edge-note{margin-top:6px;color:#91a4c2;font-size:10px}.pick-team:before{content:"★";color:#5bdcff;margin-right:7px;font-size:15px}.pick-team.pending:before{content:"◷";color:#ffd166}.confidence{padding:8px 11px;border-radius:999px;background:#123f35;color:#48ffb0;border:1px solid #28785d;font-size:11px;font-weight:900;white-space:nowrap;box-shadow:0 0 16px rgba(72,255,176,.12)}.confidence.medium{background:#493716;color:#ffd166;border-color:#805f22;box-shadow:0 0 16px rgba(255,209,102,.10)}
-    .why{margin-top:14px;padding-top:13px;border-top:1px solid #294262}.why h3{font-size:14px;margin-bottom:8px;color:#fff}.why p{color:#c2cee2;font-size:13px;line-height:1.55}
+    .h2h{margin-top:12px;padding:11px 12px;border-radius:12px;background:#101a31;border:1px solid #29436c}.h2h-label{font-size:10px;font-weight:900;letter-spacing:1.1px;color:#68dcff;text-transform:uppercase}.h2h-value{margin-top:5px;font-size:13px;font-weight:800;color:#fff}.h2h-note{margin-top:3px;font-size:10px;color:#8fa4c4}.why{margin-top:14px;padding-top:13px;border-top:1px solid #294262}.why h3{font-size:14px;margin-bottom:8px;color:#fff}.why p{color:#c2cee2;font-size:13px;line-height:1.55}
     .factors{display:grid;grid-template-columns:repeat(2,1fr);gap:7px;margin-top:12px}.factor{background:#121d36;color:#dce8ff;border:1px solid #29436c;padding:8px 9px;border-radius:10px;font-size:11px}.factor:before{content:"✓";color:#3dffad;font-weight:900;margin-right:6px}
     .dashboard{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0 18px 18px}.stat{padding:13px 8px;border-radius:14px;background:linear-gradient(145deg,#152b4b,#101c35);border:1px solid #31547d;text-align:center;box-shadow:0 8px 20px rgba(0,0,0,.22)}.stat:nth-child(1){border-color:#4466ff}.stat:nth-child(2){border-color:#29d7ff}.stat:nth-child(3){border-color:#4466ff}.stat strong{display:block;font-size:18px;color:#fff}.stat span{display:block;margin-top:3px;color:#7f8cab;font-size:9px;text-transform:uppercase;letter-spacing:.7px}.demo-note{margin:0 18px 18px;padding:11px 13px;border-radius:12px;background:#171f38;border:1px solid #283252;color:#8f9bb9;font-size:11px;line-height:1.45}
     .results,.about{display:none;margin:0 18px;padding:20px;background:#141c33;border:1px solid #252f4d;border-radius:18px;line-height:1.6;color:#aab5d1}.results h2,.about h2{color:#fff;margin-bottom:10px}.empty{margin-top:12px;text-align:center;padding:25px 15px;border-radius:14px;background:#18213b;color:#7783a5}
@@ -69,17 +69,22 @@
       </div>
       <div class="analysis">
         <div class="pick-panel">
-        <div class="pick-label">Our Pick</div>
-        <div class="pick-row"><div class="pick-team">Toronto Raptors</div><div class="confidence medium">MEDIUM</div>
-        <div class="edge-note">Model prediction preview</div>
+          <div class="pick-label">Prediction Status</div>
+          <div class="pick-row"><div class="pick-team pending">Pending model test</div><div class="confidence medium">PENDING</div></div>
+          <div class="edge-note">No official pick has been issued</div>
         </div>
-        <div class="why"><h3>Why we pick Toronto</h3><p>Demo explanation: Toronto gets the edge based on the matchup factors shown below. Later, this explanation will be generated from current verified NBA data.</p></div>
-        <div class="factors"><span class="factor">Recent Form</span><span class="factor">Home / Away</span><span class="factor">Injuries</span><span class="factor">Matchup</span></div>
+        <div class="h2h">
+          <div class="h2h-label">Head-to-Head · Last 5</div>
+          <div class="h2h-value">Historical data pending</div>
+          <div class="h2h-note">Will be calculated automatically from the five most recent meetings.</div>
+        </div>
+        <div class="why"><h3>Analysis not published yet</h3><p>Pick, confidence and game-day evidence will appear after the prediction pipeline passes execution and backtesting.</p></div>
+        <div class="factors"><span class="factor">Recent Form</span><span class="factor">Last 5 H2H</span><span class="factor">Injuries</span><span class="factor">Matchup</span></div>
       </div>
     </article>
 
     <article class="game-card">
-      <div class="game-header"><span>8:00 PM</span><span>Preseason · Boulder</span></div>
+      <div class="game-header"><span>Sun · Oct 4 · 7:00 PM ET</span><span>Preseason · Boulder</span></div>
       <div class="matchup">
         <div class="team"><div class="team-left"><div class="team-logo"><img src="https://cdn.nba.com/logos/nba/1610612762/primary/L/logo.svg" alt="UTA logo"></div><div><div class="team-name">Utah Jazz</div><div class="team-record">Away</div></div></div><div class="location">2026–27</div></div>
         <div class="versus">VS</div>
@@ -87,17 +92,22 @@
       </div>
       <div class="analysis">
         <div class="pick-panel">
-        <div class="pick-label">Our Pick</div>
-        <div class="pick-row"><div class="pick-team">Denver Nuggets</div><div class="confidence">HIGH</div>
-        <div class="edge-note">Model prediction preview</div>
+          <div class="pick-label">Prediction Status</div>
+          <div class="pick-row"><div class="pick-team pending">Pending model test</div><div class="confidence medium">PENDING</div></div>
+          <div class="edge-note">No official pick has been issued</div>
         </div>
-        <div class="why"><h3>Why we pick Denver</h3><p>Demo explanation: Denver has the stronger overall profile for this example. The production version will explain the pick using actual game-day evidence.</p></div>
-        <div class="factors"><span class="factor">Recent Form</span><span class="factor">Home / Away</span><span class="factor">Injuries</span><span class="factor">Matchup</span></div>
+        <div class="h2h">
+          <div class="h2h-label">Head-to-Head · Last 5</div>
+          <div class="h2h-value">Historical data pending</div>
+          <div class="h2h-note">Will be calculated automatically from the five most recent meetings.</div>
+        </div>
+        <div class="why"><h3>Analysis not published yet</h3><p>Pick, confidence and game-day evidence will appear after the prediction pipeline passes execution and backtesting.</p></div>
+        <div class="factors"><span class="factor">Recent Form</span><span class="factor">Last 5 H2H</span><span class="factor">Injuries</span><span class="factor">Matchup</span></div>
       </div>
     </article>
 
     <article class="game-card">
-      <div class="game-header"><span>9:00 PM</span><span>Preseason · Honolulu</span></div>
+      <div class="game-header"><span>Sun · Oct 4 · 7:00 PM ET</span><span>Preseason · Honolulu</span></div>
       <div class="matchup">
         <div class="team"><div class="team-left"><div class="team-logo"><img src="https://cdn.nba.com/logos/nba/1610612744/primary/L/logo.svg" alt="GSW logo"></div><div><div class="team-name">Golden State Warriors</div><div class="team-record">Away</div></div></div><div class="location">2026–27</div></div>
         <div class="versus">VS</div>
@@ -105,12 +115,17 @@
       </div>
       <div class="analysis">
         <div class="pick-panel">
-        <div class="pick-label">Our Pick</div>
-        <div class="pick-row"><div class="pick-team">Golden State Warriors</div><div class="confidence medium">MEDIUM</div>
-        <div class="edge-note">Model prediction preview</div>
+          <div class="pick-label">Prediction Status</div>
+          <div class="pick-row"><div class="pick-team pending">Pending model test</div><div class="confidence medium">PENDING</div></div>
+          <div class="edge-note">No official pick has been issued</div>
         </div>
-        <div class="why"><h3>Why we pick Golden State</h3><p>Demo explanation: this card shows how a closer matchup will look. Real confidence will come from the prediction system rather than a hard-coded label.</p></div>
-        <div class="factors"><span class="factor">Recent Form</span><span class="factor">Home / Away</span><span class="factor">Injuries</span><span class="factor">Matchup</span></div>
+        <div class="h2h">
+          <div class="h2h-label">Head-to-Head · Last 5</div>
+          <div class="h2h-value">Historical data pending</div>
+          <div class="h2h-note">Will be calculated automatically from the five most recent meetings.</div>
+        </div>
+        <div class="why"><h3>Analysis not published yet</h3><p>Pick, confidence and game-day evidence will appear after the prediction pipeline passes execution and backtesting.</p></div>
+        <div class="factors"><span class="factor">Recent Form</span><span class="factor">Last 5 H2H</span><span class="factor">Injuries</span><span class="factor">Matchup</span></div>
       </div>
     </article>
   </main>
