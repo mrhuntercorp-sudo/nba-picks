@@ -1,1 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <title>NBA Picks</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #0b1020;
+      color: #ffffff;
+      min-height: 100vh;
+    }
+
+    .app {
+      max-width: 700px;
+      margin: 0 auto;
+      padding-bottom: 40px;
+    }
+
+    /* HEADER */
+    header {
+      padding: 24px 18px 18px;
+      background: linear-gradient(135deg, #151d38, #0d1328);
+      border-bottom: 1px solid #283252;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: -1px;
+    }
+
+    .logo span {
+      color: #ff6b35;
+    }
+
+    .record {
+      background: #1c2745;
+      padding: 8px 12px;
+      border-radius: 20px;
+      font-size: 13px;
+      color: #b9c4df;
+    }
+
+    .record strong {
+      color: #fff;
+    }
+
+    /* HERO */
+    .hero {
+      margin: 18px;
+      padding: 22px;
+      border-radius: 22px;
+      background: linear-gradient(135deg, #ff6b35, #ff3d68);
+      box-shadow: 0 12px 35px rgba(255, 75, 75, 0.2);
+    }
+
+    .hero small {
+      opacity: 0.85;
+      font-size: 13px;
+    }
+
+    .hero h1 {
+      margin-top: 6px;
+      font-size: 30px;
+    }
+
+    .hero p {
+      margin-top: 8px;
+      line-height: 1.5;
+      opacity: 0.9;
+      font-size: 14px;
+    }
+
+    /* NAV */
+    .tabs {
+      display: flex;
+      gap: 8px;
+      padding: 0 18px 16px;
+    }
+
+    .tab {
+      flex: 1;
+      border: none;
+      padding: 12px 8px;
+      border-radius: 12px;
+      background: #171f38;
+      color: #9da9c7;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .tab.active {
+      background: #ff6b35;
+      color: white;
+    }
+
+    /* SECTION */
+    .section {
+      padding: 0 18px;
+    }
+
+    .section-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 10px 0 12px;
+    }
+
+    .section-title h2 {
+      font-size: 20px;
+    }
+
+    .section-title span {
+      color: #7783a5;
+      font-size: 12px;
+    }
+
+    /* GAME CARD */
+    .game-card {
+      background: #141c33;
+      border: 1px solid #252f4d;
+      border-radius: 18px;
+      margin-bottom: 14px;
+      overflow: hidden;
+    }
+
+    .game-header {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px 15px;
+      background: #18213b;
+      color: #8f9bb9;
+      font-size: 12px;
+    }
+
+    .live {
+      color: #57e389;
+      font-weight: bold;
+    }
+
+    .matchup {
+      padding: 18px 15px;
+    }
+
+    .team {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 15px;
+    }
+
+    .team:last-child {
+      margin-bottom: 0;
+    }
+
+    .team-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .team-logo {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: #273251;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 12px;
+    }
+
+    .team-name {
+      font-weight: bold;
+    }
+
+    .team-record {
+      color: #7885a5;
+      font-size: 11px;
+      margin-top: 3px;
+    }
+
+    .odds {
+      color: #aab5d1;
+      font-size: 13px;
+    }
+
+    /* PICK BUTTONS */
+    .pick-area {
+      border-top: 1px solid #252f4d;
+      padding: 13px 15px;
+    }
+
+    .pick-label {
+      color: #8793b0;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+
+    .pick-buttons {
+      display: flex;
+      gap: 8px;
+    }
+
+    .pick-btn {
+      flex: 1;
+      padding: 12px 8px;
+      border: 1px solid #34405f;
+      background: #1a2440;
+      color: white;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.2s;
+    }
+
+    .pick-btn:hover {
+      border-color: #ff6b35;
+    }
+
+    .pick-btn.selected {
+      background: #ff6b35;
+      border-color: #ff6b35;
+    }
+
+    /* MY PICKS */
+    .empty {
+      text-align: center;
+      padding: 35px 20px;
+      color: #7783a5;
+      background: #141c33;
+      border: 1px solid #252f4d;
+      border-radius: 18px;
+    }
+
+    .empty-icon {
+      font-size: 38px;
+      margin-bottom: 10px;
+    }
+
+    /* BOTTOM SUMMARY */
+    .summary {
+      position: sticky;
+      bottom: 12px;
+      margin: 20px 18px 0;
+      padding: 15px;
+      background: rgba(22, 30, 54, 0.96);
+      backdrop-filter: blur(12px);
+      border: 1px solid #33405f;
+      border-radius: 17px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+    }
+
+    .summary-text small {
+      color: #8490ad;
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    .summary-text strong {
+      font-size: 18px;
+    }
+
+    .clear-btn {
+      border: none;
+      background: #293553;
+      color: white;
+      padding: 10px 14px;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    /* ABOUT */
+    .about {
+      display: none;
+      margin: 0 18px;
+      padding: 20px;
+      background: #141c33;
+      border: 1px solid #252f4d;
+      border-radius: 18px;
+      line-height: 1.6;
+      color: #aab5d1;
+    }
+
+    .about h2 {
+      color: white;
+      margin-bottom: 10px;
+    }
+
+    /* MOBILE */
+    @media (max-width: 420px) {
+      .logo {
+        font-size: 24px;
+      }
+
+      .hero h1 {
+        font-size: 26px;
+      }
+
+      .team-logo {
+        width: 38px;
+        height: 38px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <header>
+    <div class="top-row">
+      <div class="logo">NBA <span>PICKS</span></div>
+      <div class="record">
+        Record: <strong id="record">0-0</strong>
+      </div>
+    </div>
+  </header>
+
+  <div class="hero">
+    <small>🏀 NBA PICKS</small>
+    <h1>Make your picks.</h1>
+    <p>
+      Choose your winners for today's games and keep track of your selections.
+    </p>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" onclick="showTab('games', this)">
+      Games
+    </button>
+
+    <button class="tab" onclick="showTab('mypicks', this)">
+      My Picks
+    </button>
+
+    <button class="tab" onclick="showTab('about', this)">
+      About
+    </button>
+  </div>
+
+  <!-- GAMES -->
+  <main id="games" class="section">
+
+    <div class="section-title">
+      <h2>Today's Games</h2>
+      <span>Demo games</span>
+    </div>
+
+    <!-- GAME 1 -->
+    <div class="game-card">
+
+      <div class="game-header">
+        <span>7:00 PM</span>
+        <span>Regular Season</span>
+      </div>
+
+      <div class="matchup">
+
+        <div class="team">
+          <div class="team-left">
+            <div class="team-logo">MIA</div>
+
+            <div>
+              <div class="team-name">Miami Heat</div>
+              <div class="team-record">Home</div>
+            </div>
+          </div>
+
+          <div class="odds">-2.5</div>
+        </div>
+
+        <div class="team">
+          <div class="team-left">
+            <div class="team-logo">TOR</div>
+
+            <div>
+              <div class="team-name">Toronto Raptors</div>
+              <div class="team-record">Away</div>
+            </div>
+          </div>
+
+          <div class="odds">+2.5</div>
+        </div>
+
+      </div>
+
+      <div class="pick-area">
+
+        <div class="pick-label">Your Pick</div>
+
+        <div class="pick-buttons">
+
+          <button
+            class="pick-btn"
+            onclick="makePick('Miami Heat', this)">
+            Miami
+          </button>
+
+          <button
+            class="pick-btn"
+            onclick="makePick('Toronto Raptors', this)">
+            Toronto
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- GAME 2 -->
+    <div class="game-card">
+
+      <div class="game-header">
+        <span>8:00 PM</span>
+        <span>Regular Season</span>
+      </div>
+
+      <div class="matchup">
+
+        <div class="team">
+
+          <div class="team-left">
+
+            <div class="team-logo">DEN</div>
+
+            <div>
+              <div class="team-name">Denver Nuggets</div>
+              <div class="team-record">Home</div>
+            </div>
+
+          </div>
+
+          <div class="odds">-4.5</div>
+
+        </div>
+
+
+        <div class="team">
+
+          <div class="team-left">
+
+            <div class="team-logo">UTA</div>
+
+            <div>
+              <div class="team-name">Utah Jazz</div>
+              <div class="team-record">Away</div>
+            </div>
+
+          </div>
+
+          <div class="odds">+4.5</div>
+
+        </div>
+
+      </div>
+
+
+      <div class="pick-area">
+
+        <div class="pick-label">Your Pick</div>
+
+        <div class="pick-buttons">
+
+          <button
+            class="pick-btn"
+            onclick="makePick('Denver Nuggets', this)">
+            Denver
+          </button>
+
+          <button
+            class="pick-btn"
+            onclick="makePick('Utah Jazz', this)">
+            Utah
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- GAME 3 -->
+    <div class="game-card">
+
+      <div class="game-header">
+        <span>9:00 PM</span>
+        <span>Regular Season</span>
+      </div>
+
+      <div class="matchup">
+
+        <div class="team">
+
+          <div class="team-left">
+
+            <div class="team-logo">GSW</div>
+
+            <div>
+              <div class="team-name">Golden State</div>
+              <div class="team-record">Away</div>
+            </div>
+
+          </div>
+
+          <div class="odds">+1.5</div>
+
+        </div>
+
+
+        <div class="team">
+
+          <div class="team-left">
+
+            <div class="team-logo">LAC</div>
+
+            <div>
+              <div class="team-name">LA Clippers</div>
+              <div class="team-record">Home</div>
+            </div>
+
+          </div>
+
+          <div class="odds">-1.5</div>
+
+        </div>
+
+      </div>
+
+
+      <div class="pick-area">
+
+        <div class="pick-label">Your Pick</div>
+
+        <div class="pick-buttons">
+
+          <button
+            class="pick-btn"
+            onclick="makePick('Golden State Warriors', this)">
+            Golden State
+          </button>
+
+          <button
+            class="pick-btn"
+            onclick="makePick('LA Clippers', this)">
+            Clippers
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+
+  <!-- MY PICKS -->
+  <main id="mypicks" class="section" style="display:none;">
+
+    <div class="section-title">
+      <h2>My Picks</h2>
+      <span id="pickCount">0 picks</span>
+    </div>
+
+    <div id="myPicksList">
+
+      <div class="empty">
+
+        <div class="empty-icon">🎯</div>
+
+        <div>
+          You haven't made any picks yet.
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+
+  <!-- ABOUT -->
+  <section id="about" class="about">
+
+    <h2>About NBA Picks</h2>
+
+    <p>
+      NBA Picks is a simple mobile-friendly place to make and track
+      basketball game selections.
+    </p>
+
+    <br>
+
+    <p>
+      This first version uses demo game data. Later we can connect the
+      app to live NBA data so the games, schedules, records and results
+      update automatically.
+    </p>
+
+  </section>
+
+
+  <!-- SUMMARY -->
+  <div class="summary">
+
+    <div class="summary-text">
+
+      <small>Today's selections</small>
+
+      <strong id="summaryCount">
+        0 picks
+      </strong>
+
+    </div>
+
+    <button
+      class="clear-btn"
+      onclick="clearPicks()">
+      Clear
+    </button>
+
+  </div>
+
+</div>
+
+
+<script>
+
+  let picks = JSON.parse(
+    localStorage.getItem("nbaPicks") || "[]"
+  );
+
+
+  function makePick(team, button) {
+
+    const gameCard = button.closest(".game-card");
+
+    const buttons =
+      gameCard.querySelectorAll(".pick-btn");
+
+    buttons.forEach(btn => {
+      btn.classList.remove("selected");
+    });
+
+    button.classList.add("selected");
+
+
+    const allGames =
+      Array.from(document.querySelectorAll(".game-card"));
+
+    const gameIndex =
+      allGames.indexOf(gameCard);
+
+
+    picks = picks.filter(
+      pick => pick.gameIndex !== gameIndex
+    );
+
+
+    picks.push({
+      gameIndex: gameIndex,
+      team: team
+    });
+
+
+    localStorage.setItem(
+      "nbaPicks",
+      JSON.stringify(picks)
+    );
+
+
+    updateUI();
+  }
+
+
+  function updateUI() {
+
+    document.getElementById("summaryCount").textContent =
+      picks.length +
+      (picks.length === 1 ? " pick" : " picks");
+
+
+    document.getElementById("pickCount").textContent =
+      picks.length +
+      (picks.length === 1 ? " pick" : " picks");
+
+
+    const list =
+      document.getElementById("myPicksList");
+
+
+    if (picks.length === 0) {
+
+      list.innerHTML = `
+        <div class="empty">
+          <div class="empty-icon">🎯</div>
+          <div>You haven't made any picks yet.</div>
+        </div>
+      `;
+
+      return;
+    }
+
+
+    list.innerHTML = picks.map((pick, index) => {
+
+      return `
+        <div class="game-card">
+
+          <div class="game-header">
+            <span>Pick ${index + 1}</span>
+            <span class="live">SELECTED</span>
+          </div>
+
+          <div class="matchup">
+
+            <div class="team">
+
+              <div class="team-left">
+
+                <div class="team-logo">
+                  🏀
+                </div>
+
+                <div>
+
+                  <div class="team-name">
+                    ${pick.team}
+                  </div>
+
+                  <div class="team-record">
+                    Your selection
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+      `;
+
+    }).join("");
+  }
+
+
+  function clearPicks() {
+
+    if (picks.length === 0) {
+      return;
+    }
+
+
+    if (
+      confirm("Clear all of today's picks?")
+    ) {
+
+      picks = [];
+
+      localStorage.removeItem(
+        "nbaPicks"
+      );
+
+
+      document
+        .querySelectorAll(".pick-btn")
+        .forEach(btn => {
+          btn.classList.remove("selected");
+        });
+
+
+      updateUI();
+    }
+  }
+
+
+  function showTab(tabName, clickedButton) {
+
+    document.getElementById("games").style.display =
+      "none";
+
+    document.getElementById("mypicks").style.display =
+      "none";
+
+    document.getElementById("about").style.display =
+      "none";
+
+
+    document.getElementById(tabName).style.display =
+      tabName === "about" ? "block" : "block";
+
+
+    document.querySelectorAll(".tab").forEach(tab => {
+      tab.classList.remove("active");
+    });
+
+
+    clickedButton.classList.add("active");
+  }
+
+
+  /*
+    Restore selected buttons after page reload.
+  */
+
+  function restorePicks() {
+
+    const games =
+      document.querySelectorAll(".game-card");
+
+    picks.forEach(pick => {
+
+      const game =
+        games[pick.gameIndex];
+
+      if (!game) return;
+
+      const buttons =
+        game.querySelectorAll(".pick-btn");
+
+      buttons.forEach(button => {
+
+        if (
+          button.textContent.trim()
+            .toLowerCase()
+            .includes(
+              pick.team.split(" ")[0].toLowerCase()
+            )
+        ) {
+
+          button.classList.add("selected");
+
+        }
+
+      });
+
+    });
+
+  }
+
+
+  updateUI();
+
+  restorePicks();
+
+</script>
+
+</body>
+</html>
