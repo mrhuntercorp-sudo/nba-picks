@@ -99,108 +99,28 @@ header{padding:20px 18px 17px;background:rgba(2,9,23,.94);border-bottom:1px soli
 /* Header crown alignment — approved isolated adjustment */
 .crown{transform:translateY(-5px)}
 
-/* Hero NBA artwork — isolated visual addition */
-.hero{min-height:245px}
-.hero-copy{position:relative;z-index:2;max-width:72%}
-.hero-nba-art{position:absolute;z-index:1;right:0;top:0;width:36%;height:100%;pointer-events:none}
-.hero-nba-logo{position:absolute;width:72px;height:145px;object-fit:contain;right:34px;top:38px;filter:drop-shadow(0 5px 12px rgba(0,0,0,.22))}
-.hero-ball{position:absolute;right:-35px;bottom:-21px;font-size:132px;line-height:1;transform:rotate(-16deg);filter:drop-shadow(-10px -5px 14px rgba(36,15,4,.38))}
-@media(max-width:520px){.hero{min-height:190px}.hero-copy{max-width:72%}.hero-nba-art{width:38%}.hero-nba-logo{width:58px;height:116px;right:25px;top:31px}.hero-ball{font-size:102px;right:-31px;bottom:-17px}}
-
-/* Hero proportion correction — target-reference pass only */
-@media(max-width:520px){
- .hero{min-height:0!important;height:216px!important;padding:17px 18px!important}
- .hero-copy{max-width:70%!important}
- .hero small{font-size:10px!important;white-space:nowrap}
- .hero h1{font-size:25px!important;line-height:1.06!important;margin-top:7px!important;white-space:nowrap}
- .hero h1 br{display:block}
- .hero p{font-size:11px!important;line-height:1.42!important;margin-top:11px!important;max-width:100%!important}
- .hero-nba-art{width:31%!important}
- .hero-nba-logo{width:45px!important;height:92px!important;right:37px!important;top:49px!important;object-fit:cover!important;object-position:left center!important}
- .hero-ball{font-size:72px!important;right:-18px!important;bottom:13px!important}
-}
-
-/* Hero target-reference refinement */
-@media(max-width:520px){
- .hero{height:176px!important;padding:15px 16px!important}
- .hero-copy{max-width:73%!important}
- .hero small{font-size:9px!important;letter-spacing:.35px!important}
- .hero h1{font-size:21px!important;line-height:1.05!important;margin-top:6px!important}
- .hero p{font-size:9px!important;line-height:1.38!important;margin-top:9px!important;max-width:98%!important}
- .hero-nba-art{width:29%!important}
- .hero-nba-logo{width:43px!important;height:86px!important;right:29px!important;top:30px!important}
- .hero-ball{font-size:66px!important;right:-17px!important;bottom:18px!important}
-}
-
-/* Hero visual-match pass: typography, NBA mark detail, gradient */
+/* Hero — clean locked-reference implementation */
+.hero-copy{position:relative;z-index:2}
+.hero-nba-art{position:absolute;z-index:2;right:0;top:0;height:100%;pointer-events:none}
+.hero-nba-logo{position:absolute;filter:drop-shadow(0 5px 12px rgba(0,0,0,.22))}
+.hero-ball{position:absolute;line-height:1;filter:drop-shadow(-8px 2px 12px rgba(30,12,2,.35))}
 @media(max-width:520px){
  .hero{
-   background:
-    radial-gradient(circle at 89% 63%,rgba(239,49,67,.18) 0,rgba(239,49,67,.07) 12%,transparent 27%),
-    linear-gradient(118deg,#1246db 0%,#075df0 47%,#079ee6 100%)!important;
+  height:174px;min-height:174px;padding:15px 16px;border-radius:15px;overflow:hidden;
+  background:
+   radial-gradient(circle at 94% 61%,rgba(207,35,65,.20) 0,rgba(207,35,65,.07) 13%,transparent 27%),
+   linear-gradient(112deg,#1239c5 0%,#0759eb 54%,#0796dc 100%);
  }
- .hero:after{content:"";position:absolute;inset:0;background:linear-gradient(135deg,transparent 53%,rgba(255,255,255,.07) 53%,transparent 70%);pointer-events:none}
- .hero small{font-size:10px!important;font-weight:800!important;letter-spacing:.25px!important}
- .hero h1{font-size:22px!important;font-weight:800!important;letter-spacing:-.55px!important;line-height:1.04!important}
- .hero p{font-size:10px!important;font-weight:500!important;line-height:1.38!important;color:rgba(225,236,255,.86)!important}
- .hero-nba-logo{width:49px!important;height:99px!important;right:27px!important;top:28px!important;object-fit:contain!important;object-position:center!important}
- .hero-nba-art:after{content:"NBA";position:absolute;right:34px;top:103px;font-size:10px;font-weight:900;letter-spacing:-.4px;color:#fff;z-index:3}
- .hero-ball{font-size:63px!important;right:-15px!important;bottom:17px!important;z-index:4}
-}
-
-/* Hero exact-reference mobile geometry */
-@media(max-width:520px){
- .hero{
-   height:174px!important; min-height:174px!important;
-   padding:15px 16px!important;
-   border-radius:15px!important;
-   background:
-    radial-gradient(circle at 93% 58%,rgba(255,63,55,.24) 0%,rgba(255,63,55,.08) 12%,transparent 27%),
-    linear-gradient(116deg,#103fd0 0%,#0758e8 48%,#0698dd 100%)!important;
- }
- .hero-copy{max-width:71%!important}
- .hero small{font-size:9px!important;line-height:1!important;font-weight:800!important;letter-spacing:.2px!important}
- .hero h1{font-size:20px!important;line-height:1.08!important;font-weight:800!important;letter-spacing:-.45px!important;margin:8px 0 0!important;white-space:nowrap!important}
- .hero p{font-size:9px!important;line-height:1.42!important;font-weight:500!important;margin:10px 0 0!important;color:rgba(218,231,251,.82)!important;max-width:100%!important}
- .hero-nba-art{width:29%!important;height:100%!important}
- .hero-nba-logo{width:42px!important;height:88px!important;right:31px!important;top:31px!important;object-fit:contain!important}
- .hero-nba-art:after{content:"NBA";right:36px!important;top:105px!important;font-size:9px!important;line-height:1!important}
- .hero-ball{font-size:59px!important;right:-10px!important;bottom:20px!important;transform:rotate(-16deg)!important}
-}
-
-/* Locked-reference hero pass */
-@media(max-width:520px){
- .hero{
-   height:174px!important;min-height:174px!important;padding:15px 16px!important;border-radius:15px!important;
-   background:
-    radial-gradient(circle at 93% 58%,rgba(225,38,66,.20) 0%,rgba(225,38,66,.07) 13%,transparent 26%),
-    linear-gradient(112deg,#1238bd 0%,#0758e7 52%,#0797dc 100%)!important;
- }
- .hero:before{opacity:.14!important}
- .hero:after{background:linear-gradient(133deg,transparent 54%,rgba(255,255,255,.075) 54%,transparent 70%)!important}
- .hero-copy{max-width:72%!important}
- .hero small{font-size:9px!important;font-weight:800!important;letter-spacing:.15px!important}
- .hero h1{font-size:20px!important;line-height:1.07!important;font-weight:800!important;letter-spacing:-.45px!important;margin-top:8px!important}
- .hero p{font-size:9px!important;line-height:1.42!important;font-weight:500!important;color:rgba(216,229,250,.80)!important;margin-top:10px!important}
- .hero-nba-art{width:30%!important}
- .hero-nba-logo{width:52px!important;height:104px!important;right:25px!important;top:27px!important;object-fit:contain!important}
- .hero-nba-art:after{content:"NBA";right:34px!important;top:107px!important;font-size:10px!important;font-weight:900!important}
- .hero-ball{font-size:62px!important;right:-11px!important;bottom:18px!important;z-index:5!important}
-}
-
-/* Hero cleanup: remove legacy circle + verticalize NBA artwork */
-@media(max-width:520px){
- .hero:before{display:none!important;content:none!important;background:none!important}
- .hero-nba-art{width:30%!important}
- .hero-nba-logo{
-   width:46px!important;height:101px!important;right:30px!important;top:28px!important;
-   object-fit:cover!important;object-position:left center!important;
- }
- .hero-nba-art:after{
-   content:"NBA"!important;right:35px!important;top:105px!important;
-   font-size:10px!important;font-weight:900!important;line-height:1!important;color:#fff!important;
- }
- .hero-ball{font-size:61px!important;right:-10px!important;bottom:18px!important;z-index:5!important}
+ .hero:before{display:none;content:none}
+ .hero:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(132deg,transparent 54%,rgba(255,255,255,.075) 54%,transparent 70%)}
+ .hero-copy{max-width:72%}
+ .hero small{font-size:9px;line-height:1;font-weight:800;letter-spacing:.15px;white-space:nowrap}
+ .hero h1{font-size:20px;line-height:1.07;font-weight:800;letter-spacing:-.45px;margin:8px 0 0;white-space:nowrap}
+ .hero p{font-size:9px;line-height:1.42;font-weight:500;color:rgba(216,229,250,.80);margin:10px 0 0;max-width:100%}
+ .hero-nba-art{width:30%}
+ .hero-nba-logo{width:54px;height:108px;right:23px;top:26px;object-fit:contain}
+ .hero-nba-art:after{content:"";display:none}
+ .hero-ball{font-size:64px;right:-12px;bottom:16px;transform:rotate(-16deg);z-index:4}
 }
 </style>
 </head>
