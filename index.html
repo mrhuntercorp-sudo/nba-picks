@@ -106,6 +106,19 @@ header{padding:20px 18px 17px;background:rgba(2,9,23,.94);border-bottom:1px soli
 .hero-nba-logo{position:absolute;width:72px;height:145px;object-fit:contain;right:34px;top:38px;filter:drop-shadow(0 5px 12px rgba(0,0,0,.22))}
 .hero-ball{position:absolute;right:-35px;bottom:-21px;font-size:132px;line-height:1;transform:rotate(-16deg);filter:drop-shadow(-10px -5px 14px rgba(36,15,4,.38))}
 @media(max-width:520px){.hero{min-height:190px}.hero-copy{max-width:72%}.hero-nba-art{width:38%}.hero-nba-logo{width:58px;height:116px;right:25px;top:31px}.hero-ball{font-size:102px;right:-31px;bottom:-17px}}
+
+/* Hero proportion correction — target-reference pass only */
+@media(max-width:520px){
+ .hero{min-height:0!important;height:216px!important;padding:17px 18px!important}
+ .hero-copy{max-width:70%!important}
+ .hero small{font-size:10px!important;white-space:nowrap}
+ .hero h1{font-size:25px!important;line-height:1.06!important;margin-top:7px!important;white-space:nowrap}
+ .hero h1 br{display:block}
+ .hero p{font-size:11px!important;line-height:1.42!important;margin-top:11px!important;max-width:100%!important}
+ .hero-nba-art{width:31%!important}
+ .hero-nba-logo{width:45px!important;height:92px!important;right:37px!important;top:49px!important;object-fit:cover!important;object-position:left center!important}
+ .hero-ball{font-size:72px!important;right:-18px!important;bottom:13px!important}
+}
 </style>
 </head>
 <body>
