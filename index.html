@@ -124,6 +124,22 @@ header{padding:20px 18px 17px;background:rgba(2,9,23,.94);border-bottom:1px soli
  .analysis{padding:7px!important}.pick-panel{position:relative;padding:9px 10px 9px 46px!important;min-height:67px;background:linear-gradient(120deg,#073d83,#096fbd 70%,#064478)}.pick-panel:before{content:"♛";position:absolute;left:13px;top:16px;color:#15dcff;font-size:25px;text-shadow:0 0 13px #10bfff}.pick-label:before{display:none}.pick-label{font-size:8px!important}.pick-team{font-size:16px!important}.confidence{font-size:9px!important}.edge-note{font-size:8px!important;margin-top:3px!important}
  .intel-grid,.why,.factors{margin-top:5px}.analysis-details:not([open])+.x{display:none}
 }
+
+/* Cleanup pass: remove synthetic artwork and comic sunburst */
+.hero-art{opacity:.95}
+.nba-mark{background:linear-gradient(90deg,#174ea6 0 48%,#fff 48% 52%,#d71e3f 52%);border-color:#fff}
+.nba-mark:before{width:7px!important;left:17px!important;top:10px!important;height:49px!important;border-radius:50% 50% 35% 35%;transform:rotate(-8deg)}
+.basketball{width:82px!important;height:82px!important;right:-22px!important;bottom:-15px!important;background:radial-gradient(circle at 33% 27%,#ff9a45 0,#ef6a24 42%,#c74317 78%,#85220e 100%)!important;box-shadow:-8px -5px 22px rgba(255,100,20,.22)!important}
+@media(max-width:520px){
+ .matchup{background:
+   linear-gradient(112deg,transparent 38%,rgba(28,113,229,.13) 39% 40%,transparent 41% 47%,rgba(56,154,255,.16) 48% 49%,transparent 50% 58%,rgba(26,112,229,.12) 59% 60%,transparent 61%),
+   radial-gradient(ellipse at 50% 50%,rgba(0,139,255,.42) 0,rgba(0,86,190,.16) 18%,transparent 43%),
+   radial-gradient(ellipse at 7% 55%,rgba(204,10,47,.30),transparent 35%),
+   radial-gradient(ellipse at 93% 55%,rgba(0,149,126,.20),transparent 35%),
+   linear-gradient(90deg,#120d25 0%,#03142d 35%,#031a3c 50%,#03172f 68%,#042a32 100%)!important}
+ .matchup:before{background:linear-gradient(90deg,transparent 0 47%,rgba(56,164,255,.18) 49%,rgba(90,192,255,.50) 50%,rgba(56,164,255,.18) 51%,transparent 53%)!important;box-shadow:none!important}
+ .matchup:after{background:radial-gradient(circle at 50% 50%,rgba(85,196,255,.58) 0 2px,rgba(19,123,255,.22) 3px 13px,transparent 28px)!important;mix-blend-mode:screen}
+}
 </style>
 </head>
 <body>
