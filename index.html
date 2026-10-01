@@ -131,6 +131,22 @@ header{padding:20px 18px 17px;background:rgba(2,9,23,.94);border-bottom:1px soli
  .hero-nba-logo{width:43px!important;height:86px!important;right:29px!important;top:30px!important}
  .hero-ball{font-size:66px!important;right:-17px!important;bottom:18px!important}
 }
+
+/* Hero visual-match pass: typography, NBA mark detail, gradient */
+@media(max-width:520px){
+ .hero{
+   background:
+    radial-gradient(circle at 89% 63%,rgba(239,49,67,.18) 0,rgba(239,49,67,.07) 12%,transparent 27%),
+    linear-gradient(118deg,#1246db 0%,#075df0 47%,#079ee6 100%)!important;
+ }
+ .hero:after{content:"";position:absolute;inset:0;background:linear-gradient(135deg,transparent 53%,rgba(255,255,255,.07) 53%,transparent 70%);pointer-events:none}
+ .hero small{font-size:10px!important;font-weight:800!important;letter-spacing:.25px!important}
+ .hero h1{font-size:22px!important;font-weight:800!important;letter-spacing:-.55px!important;line-height:1.04!important}
+ .hero p{font-size:10px!important;font-weight:500!important;line-height:1.38!important;color:rgba(225,236,255,.86)!important}
+ .hero-nba-logo{width:49px!important;height:99px!important;right:27px!important;top:28px!important;object-fit:contain!important;object-position:center!important}
+ .hero-nba-art:after{content:"NBA";position:absolute;right:34px;top:103px;font-size:10px;font-weight:900;letter-spacing:-.4px;color:#fff;z-index:3}
+ .hero-ball{font-size:63px!important;right:-15px!important;bottom:17px!important;z-index:4}
+}
 </style>
 </head>
 <body>
