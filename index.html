@@ -1,207 +1,155 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NBA Picks</title>
-  <style>
-    *{box-sizing:border-box;margin:0;padding:0}
-    body{font-family:Inter,Arial,Helvetica,sans-serif;background:radial-gradient(circle at top,#172554 0,#090d1b 36%,#05070d 100%);color:#fff;min-height:100vh}
-    .app{max-width:700px;margin:0 auto;padding-bottom:52px}
-    header{padding:22px 18px 18px;background:linear-gradient(135deg,#151d38,#0d1328);border-bottom:1px solid #283252;position:sticky;top:0;z-index:10}
-    .top-row{display:flex;justify-content:space-between;align-items:center;gap:12px}
-    .logo{font-size:27px;font-weight:900;letter-spacing:-1px}.logo span{color:#55d9ff}.byline{font-size:10px;font-weight:700;letter-spacing:.5px;color:#8290b2;margin-left:5px;vertical-align:middle}
-    .record{background:#1c2745;padding:8px 12px;border-radius:20px;font-size:12px;color:#b9c4df;white-space:nowrap;border:1px solid #314064}.record strong{color:#fff}
-    .hero{position:relative;overflow:hidden;margin:18px;padding:24px;border-radius:24px;background:linear-gradient(135deg,#334cff,#1677ff 52%,#00b8d9);box-shadow:0 18px 45px rgba(32,112,255,.25)}.hero:after{content:"";position:absolute;width:170px;height:170px;border:34px solid rgba(255,255,255,.08);border-radius:50%;right:-72px;top:-78px}
-    .hero small{opacity:.88;font-size:12px;font-weight:700;letter-spacing:.7px}.hero h1{margin-top:6px;font-size:29px}.hero p{margin-top:8px;line-height:1.5;opacity:.92;font-size:14px}
-    .tabs{display:flex;gap:8px;padding:0 18px 16px}.tab{flex:1;border:0;padding:12px 8px;border-radius:12px;background:#171f38;color:#9da9c7;font-weight:bold;cursor:pointer}.tab.active{background:linear-gradient(135deg,#3658ff,#168cff);color:#fff;box-shadow:0 6px 18px rgba(30,119,255,.32)}
-    .section{padding:0 18px}.section-title{display:flex;justify-content:space-between;align-items:center;margin:10px 0 12px}.section-title h2{font-size:20px}.section-title span{color:#7783a5;font-size:12px}
-    .game-card{background:linear-gradient(180deg,#121a30,#0b1020);border:1px solid #263657;border-radius:20px;margin-bottom:18px;overflow:hidden;box-shadow:0 12px 30px rgba(0,0,0,.18)}
-    .game-header{display:flex;justify-content:space-between;padding:12px 15px;background:#18213b;color:#8f9bb9;font-size:12px}
-    .matchup{position:relative;padding:17px 15px 18px;display:grid;grid-template-columns:1fr 48px 1fr;align-items:stretch;gap:10px;background:linear-gradient(120deg,#294cff 0%,#167cff 46%,#08bfd8 100%);border-top:0;box-shadow:inset 0 1px 0 rgba(255,255,255,.18),inset 0 -24px 40px rgba(4,10,30,.18),0 8px 24px rgba(20,117,255,.16)}.team{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;margin:0;padding:14px 9px 11px;border-radius:16px;background:linear-gradient(145deg,rgba(11,34,77,.96),rgba(8,25,58,.97));border:1px solid rgba(123,211,255,.72);box-shadow:inset 0 1px 0 rgba(255,255,255,.035),0 8px 20px rgba(0,0,0,.16)}.team:last-child{margin-bottom:0}.team-left{display:flex;flex-direction:column;align-items:center;gap:8px}.versus{width:46px;height:46px;align-self:center;box-shadow:0 0 0 5px rgba(65,121,255,.10),0 7px 18px rgba(0,0,0,.3);border-radius:50%;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#294cff,#176dff);border:1px solid rgba(255,255,255,.8);color:#fff;box-shadow:0 0 18px rgba(54,88,255,.28);font-size:10px;font-weight:900}.location{margin-top:7px;color:#aab5d1;font-size:11px}.team-logo{width:58px;height:58px;box-shadow:0 0 0 4px rgba(83,151,255,.08),0 8px 18px rgba(0,0,0,.28);border-radius:50%;background:#fff;border:2px solid #35496d;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:11px;box-shadow:0 5px 14px rgba(0,0,0,.22)}.team-logo img{width:44px;height:44px;object-fit:contain}.team-name{font-weight:900;font-size:15px;color:#fff;letter-spacing:-.15px}.team-record{color:#9fb8dd;font-size:10px;margin-top:4px;text-transform:uppercase;letter-spacing:.55px}.location{color:#aab5d1;font-size:12px}
-    .analysis{border-top:1px solid #293657;padding:16px;background:rgba(8,12,24,.24)}.pick-label{color:#68dcff;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:7px}
-    .pick-panel{padding:14px;border-radius:15px;background:linear-gradient(135deg,rgba(54,88,255,.22),rgba(0,190,220,.10));border:1px solid rgba(79,126,255,.58);box-shadow:inset 0 0 24px rgba(48,101,255,.07)}.pick-row{display:flex;justify-content:space-between;align-items:center;gap:12px}.pick-team{font-size:21px;font-weight:900;letter-spacing:-.35px}.edge-note{margin-top:6px;color:#91a4c2;font-size:10px}.pick-team:before{content:"★";color:#5bdcff;margin-right:7px;font-size:15px}.pick-team.pending:before{content:"◷";color:#ffd166}.confidence{padding:8px 11px;border-radius:999px;background:#123f35;color:#48ffb0;border:1px solid #28785d;font-size:11px;font-weight:900;white-space:nowrap;box-shadow:0 0 16px rgba(72,255,176,.12)}.confidence.medium{background:#493716;color:#ffd166;border-color:#805f22;box-shadow:0 0 16px rgba(255,209,102,.10)}
-    .intel-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}.intel{padding:11px 12px;border-radius:12px;background:#101a31;border:1px solid #29436c}.intel-label{font-size:10px;font-weight:900;letter-spacing:1.1px;color:#68dcff;text-transform:uppercase}.intel-value{margin-top:5px;font-size:13px;font-weight:800;color:#fff}.intel-note{margin-top:3px;font-size:10px;color:#8fa4c4;line-height:1.35}.intel.injury{border-color:#6a5225}.intel.injury .intel-label{color:#ffd166}.intel.edge{border-color:#315d85}.h2h{margin-top:12px;padding:11px 12px;border-radius:12px;background:#101a31;border:1px solid #29436c}.h2h-label{font-size:10px;font-weight:900;letter-spacing:1.1px;color:#68dcff;text-transform:uppercase}.h2h-value{margin-top:5px;font-size:13px;font-weight:800;color:#fff}.h2h-note{margin-top:3px;font-size:10px;color:#8fa4c4}.why{margin-top:14px;padding-top:13px;border-top:1px solid #294262}.why h3{font-size:14px;margin-bottom:8px;color:#fff}.why p{color:#c2cee2;font-size:13px;line-height:1.55}
-    .factors{display:grid;grid-template-columns:repeat(2,1fr);gap:7px;margin-top:12px}.factor{background:#121d36;color:#dce8ff;border:1px solid #29436c;padding:8px 9px;border-radius:10px;font-size:11px}.factor:before{content:"✓";color:#3dffad;font-weight:900;margin-right:6px}
-    .dashboard{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0 18px 18px}.stat{padding:13px 8px;border-radius:14px;background:linear-gradient(145deg,#152b4b,#101c35);border:1px solid #31547d;text-align:center;box-shadow:0 8px 20px rgba(0,0,0,.22)}.stat:nth-child(1){border-color:#4466ff}.stat:nth-child(2){border-color:#29d7ff}.stat:nth-child(3){border-color:#4466ff}.stat strong{display:block;font-size:18px;color:#fff}.stat span{display:block;margin-top:3px;color:#7f8cab;font-size:9px;text-transform:uppercase;letter-spacing:.7px}.demo-note{margin:0 18px 18px;padding:11px 13px;border-radius:12px;background:#171f38;border:1px solid #283252;color:#8f9bb9;font-size:11px;line-height:1.45}
-    .results,.about{display:none;margin:0 18px;padding:20px;background:#141c33;border:1px solid #252f4d;border-radius:18px;line-height:1.6;color:#aab5d1}.results h2,.about h2{color:#fff;margin-bottom:10px}.empty{margin-top:12px;text-align:center;padding:25px 15px;border-radius:14px;background:#18213b;color:#7783a5}
-    @media(max-width:520px){.intel-grid{grid-template-columns:1fr}}@media(max-width:420px){.logo{font-size:24px}.hero h1{font-size:26px}.matchup{grid-template-columns:1fr 42px 1fr;gap:7px;padding:13px 10px 15px}.team{padding:13px 5px 11px}.team-logo{width:50px;height:50px}.team-logo img{width:39px;height:39px}.team-name{font-size:13px}.versus{width:40px;height:40px}.pick-team{font-size:18px}}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>HunterCorp NBA Picks</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#020814;--panel:#07162d;--panel2:#0a1d3c;--line:#0d65c9;--cyan:#19d7ff;--blue:#157cff;--text:#f7fbff;--muted:#9eb2d5;--gold:#ffc83d}
+body{font-family:Inter,Arial,Helvetica,sans-serif;background:radial-gradient(circle at 50% -8%,#092c67 0,#031126 30%,#020814 65%);color:var(--text);min-height:100vh}
+.app{max-width:760px;margin:0 auto;padding-bottom:48px}
+header{padding:20px 18px 17px;background:rgba(2,9,23,.94);border-bottom:1px solid rgba(38,126,255,.25);position:sticky;top:0;z-index:20;backdrop-filter:blur(14px)}
+.top-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{display:flex;align-items:center;gap:10px}.crown{font-size:27px;filter:drop-shadow(0 0 9px #13c9ff)}
+.brand-main{font-size:23px;font-weight:950;letter-spacing:-.8px}.brand-main span{color:var(--cyan)}
+.brand-sub{font-size:9px;letter-spacing:4px;color:#b7d3ff;text-align:center;margin-top:2px}.byline{font-size:8px;letter-spacing:.5px;color:#7189af;margin-left:5px}
+.record{padding:9px 13px;border-radius:999px;border:1px solid #285d9d;background:linear-gradient(145deg,#0b2347,#07162d);font-size:12px;color:#c4d6f5;white-space:nowrap}.record strong{color:#fff}
+.hero{position:relative;overflow:hidden;margin:18px;border:1px solid #15c8ff;border-radius:22px;padding:24px;background:linear-gradient(125deg,#253cff 0%,#087cff 53%,#02bfd5 100%);box-shadow:0 16px 42px rgba(0,101,255,.28),inset 0 1px rgba(255,255,255,.2)}
+.hero:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 88% 30%,rgba(255,255,255,.15),transparent 28%)}
+.hero:after{content:"";position:absolute;width:170px;height:170px;border:28px solid rgba(255,255,255,.06);border-radius:50%;right:-68px;top:-62px}
+.hero>*{position:relative;z-index:1}.hero small{font-size:12px;font-weight:900;letter-spacing:1px}.hero h1{margin-top:8px;font-size:31px;line-height:1.08;letter-spacing:-.7px}.hero p{margin-top:12px;font-size:14px;line-height:1.55;color:#e6f3ff}
+.dashboard{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:0 18px 18px}
+.stat{min-height:86px;padding:13px 7px;border:1px solid #1476db;border-radius:17px;background:linear-gradient(145deg,#0b2347,#06142c);text-align:center;display:flex;flex-direction:column;justify-content:center;box-shadow:0 8px 22px rgba(0,0,0,.2)}
+.stat-icon{font-size:19px;margin-bottom:5px}.stat strong{font-size:21px}.stat span{font-size:9px;color:#8fa8d0;text-transform:uppercase;letter-spacing:.8px;margin-top:4px}
+.tabs{display:flex;margin:0 18px 18px;border:1px solid #173d75;border-radius:17px;overflow:hidden;background:#07152c}
+.tab{flex:1;border:0;background:transparent;color:#9fb0cf;padding:14px 6px;font-weight:900;font-size:13px}.tab.active{background:linear-gradient(120deg,#2850ff,#08bdf4);color:white;box-shadow:0 0 24px rgba(20,141,255,.3)}
+.demo-note{margin:0 18px 21px;padding:13px 14px;border:1px solid #214a7f;border-radius:15px;background:rgba(8,28,58,.75);color:#9eb4d8;font-size:11px;line-height:1.5}.demo-note strong{color:#dceaff}.demo-note:before{content:"ⓘ";color:#3ba5ff;font-weight:900;margin-right:8px}
+.section{padding:0 18px}.section-title{display:flex;justify-content:space-between;align-items:end;margin:0 0 13px}.section-title h2{font-size:23px;letter-spacing:-.4px}.section-title span{font-size:11px;color:#9cb1d4}
+.game-card{margin-bottom:20px;border:1px solid #0879e7;border-radius:20px;overflow:hidden;background:linear-gradient(180deg,#07162d,#040d1e);box-shadow:0 15px 35px rgba(0,0,0,.28),0 0 22px rgba(0,100,255,.08)}
+.game-header{display:flex;justify-content:space-between;gap:10px;padding:10px 13px;background:#081a37;border-bottom:1px solid #124a88;color:#c1d3ef;font-size:10px}
+.matchup{position:relative;display:grid;grid-template-columns:1fr 46px 1fr;align-items:center;gap:5px;padding:18px 10px;background:radial-gradient(circle at center,#0a4aa5 0,#06285c 38%,#04142d 75%)}
+.matchup:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(224,20,66,.13),transparent 32%,transparent 68%,rgba(0,195,255,.12));pointer-events:none}
+.team{position:relative;z-index:1;text-align:center;min-width:0}.team-left{display:flex;flex-direction:column;align-items:center;gap:7px}
+.team-logo{width:66px;height:66px;display:flex;align-items:center;justify-content:center;filter:drop-shadow(0 8px 13px rgba(0,0,0,.45))}.team-logo img{width:62px;height:62px;object-fit:contain}
+.team-name{font-size:15px;font-weight:950;line-height:1.05;text-transform:uppercase}.team-record{margin-top:4px;font-size:9px;color:#b0c4e4;text-transform:uppercase;letter-spacing:.6px}.location{margin-top:5px;font-size:9px;color:#6f8caf}
+.versus{position:relative;z-index:1;text-align:center;font-size:19px;font-weight:950;color:white;text-shadow:0 0 16px #2e9cff}
+.analysis{padding:13px;background:#051126;border-top:1px solid #0a5db3}
+.pick-panel{padding:14px;border:1px solid #0ebeff;border-radius:15px;background:linear-gradient(135deg,#0b3f86,#0869bf 56%,#05366d);box-shadow:inset 0 0 26px rgba(27,197,255,.08),0 0 18px rgba(0,135,255,.12)}
+.pick-label{font-size:10px;font-weight:900;letter-spacing:1.2px;color:#6de4ff;text-transform:uppercase}.pick-label:before{content:"♛";font-size:16px;margin-right:7px}
+.pick-row{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:4px}.pick-team{font-size:22px;font-weight:950;letter-spacing:-.5px}.pick-team.pending:before{content:"";margin:0}
+.confidence{font-size:12px;font-weight:950;color:#ffe078;border:1px solid rgba(255,211,85,.45);background:#47370f;padding:8px 10px;border-radius:9px}.edge-note{margin-top:6px;color:#b9cce8;font-size:10px}
+.intel-grid{display:grid;grid-template-columns:1.15fr 1fr 1fr;gap:8px;margin-top:10px}
+.intel{min-width:0;padding:10px;border-radius:12px;background:#071a36;border:1px solid #164d85}.intel.edge{grid-column:1/-1;border-color:#a87812;background:linear-gradient(135deg,#2a220c,#17170f)}.intel.edge .intel-label{color:#ffd44d}.intel.edge .intel-label:before{content:"⚡";font-size:14px;margin-right:5px}
+.intel.injury{border-color:#5b2f4b}.intel.injury .intel-label{color:#ff7895}.intel-label{font-size:8px;font-weight:950;letter-spacing:.75px;color:#51d9ff;text-transform:uppercase}.intel-value{margin-top:5px;font-size:11px;font-weight:900;color:#fff}.intel-note{margin-top:3px;font-size:9px;line-height:1.35;color:#8fa8cb}
+.why{margin-top:10px;padding:11px 12px;border-radius:11px;background:#07172f;border:1px solid #163c6b}.why h3{font-size:11px;color:#ddecff}.why p{margin-top:4px;font-size:10px;line-height:1.45;color:#91a8cb}
+.factors{display:flex;align-items:center;gap:12px;overflow-x:auto;margin-top:10px;padding:9px 4px;color:#a8c0df;font-size:9px;white-space:nowrap}.factors:before{content:"MODEL CONSIDERED";font-weight:900;color:#d7e7ff}.factor{background:transparent;border:0;padding:0}.factor:before{content:"✓";color:#21d9ff;font-weight:900;margin-right:4px}
+.results,.about{display:none;margin:0 18px;padding:20px;border:1px solid #17467f;border-radius:18px;background:#07172f;color:#a9bcda;line-height:1.6}.results h2,.about h2{color:white;margin-bottom:8px}.empty{margin-top:12px;padding:22px;text-align:center;border-radius:12px;background:#0a1c39;color:#7e98bd}
+@media(min-width:560px){.intel-grid{grid-template-columns:1.35fr 1fr 1fr}.intel.edge{grid-column:auto;grid-row:span 1}.hero{padding:30px}.hero h1{font-size:36px}}
+@media(max-width:420px){
+ header{padding:17px 14px 15px}.brand{gap:7px}.crown{font-size:23px}.brand-main{font-size:19px}.brand-sub{font-size:8px;letter-spacing:3px}.byline{display:none}.record{font-size:10px;padding:8px 10px}
+ .hero{margin:14px;padding:20px;border-radius:20px}.hero h1{font-size:27px}.hero p{font-size:13px}
+ .dashboard,.tabs,.demo-note{margin-left:14px;margin-right:14px}.section{padding:0 14px}.dashboard{gap:7px}.stat{min-height:78px}.stat strong{font-size:19px}.stat span{font-size:8px}
+ .section-title h2{font-size:21px}.game-header{font-size:9px;padding:9px 11px}.matchup{grid-template-columns:1fr 40px 1fr;padding:15px 6px}.team-logo{width:59px;height:59px}.team-logo img{width:56px;height:56px}.team-name{font-size:13px}.versus{font-size:16px}
+ .analysis{padding:10px}.pick-panel{padding:12px}.pick-team{font-size:18px}.confidence{font-size:10px;padding:7px 8px}
+ .intel-grid{grid-template-columns:repeat(3,1fr);gap:5px}.intel{padding:8px 6px}.intel.edge{grid-column:1/-1}.intel-label{font-size:7px}.intel-value{font-size:9px}.intel-note{font-size:8px}.why{padding:9px}.factors{gap:9px;font-size:8px}
+}
+</style>
 </head>
 <body>
 <div class="app">
-  <header>
-    <div class="top-row">
-      <div class="logo">NBA <span>PICKS</span><small class="byline">by ftown</small></div>
-      <div class="record">Season <strong>0-0</strong></div>
-    </div>
-  </header>
+<header><div class="top-row">
+  <div class="brand"><div class="crown">♛</div><div><div class="brand-main">HUNTER<span>CORP</span><small class="byline">by ftown</small></div><div class="brand-sub">NBA PICKS</div></div></div>
+  <div class="record">Season <strong>0-0</strong></div>
+</div></header>
 
-  <div class="hero">
-    <small>🏀 UPCOMING NBA GAMES</small>
-    <h1>The 2026–27 season starts here.</h1>
-    <p>Real upcoming NBA matchups are now on the board. Predictions will activate after the model passes execution testing.</p>
-  </div>
+<div class="hero"><small>🏀 UPCOMING NBA GAMES</small><h1>The 2026–27 season<br>starts here.</h1><p>Real upcoming NBA matchups are now on the board. Predictions will activate after the model passes execution testing.</p></div>
 
-  <div class="dashboard">
-    <div class="stat"><strong>0-0</strong><span>Record</span></div>
-    <div class="stat"><strong>—</strong><span>Accuracy</span></div>
-    <div class="stat"><strong>3</strong><span>Upcoming Games</span></div>
-  </div>
-
-  <div class="tabs">
-    <button class="tab active" onclick="showTab('games',this)">Upcoming</button>
-    <button class="tab" onclick="showTab('results',this)">Results</button>
-    <button class="tab" onclick="showTab('about',this)">About</button>
-  </div>
-
-  <div class="demo-note"><strong>Real schedule:</strong> these are upcoming 2026–27 preseason matchups. Predictions remain locked until the model is tested and validated.</div>
-
-  <main id="games" class="section">
-    <div class="section-title"><h2>Upcoming Games</h2><span>Official schedule</span></div>
-
-    <article class="game-card">
-      <div class="game-header"><span>Sat · Oct 3 · 7:00 PM ET</span><span>Preseason · Quebec City</span></div>
-      <div class="matchup">
-        <div class="team"><div class="team-left"><div class="team-logo"><img src="https://cdn.nba.com/logos/nba/1610612748/primary/L/logo.svg" alt="MIA logo"></div><div><div class="team-name">Miami Heat</div><div class="team-record">Listed Away</div></div></div><div class="location">2026–27</div></div>
-        <div class="versus">VS</div>
-        <div class="team"><div class="team-left"><div class="team-logo"><img src="https://cdn.nba.com/logos/nba/1610612761/primary/L/logo.svg" alt="TOR logo"></div><div><div class="team-name">Toronto Raptors</div><div class="team-record">Listed Home</div></div></div><div class="location">2026–27</div></div>
-      </div>
-      <div class="analysis">
-        <div class="pick-panel">
-          <div class="pick-label">Prediction Status</div>
-          <div class="pick-row"><div class="pick-team pending">Pending model test</div><div class="confidence medium">PENDING</div></div>
-          <div class="edge-note">No official pick has been issued</div>
-        </div>
-        <div class="intel-grid">
-          <div class="intel edge">
-            <div class="intel-label">Key Edge</div>
-            <div class="intel-value">Pending model data</div>
-            <div class="intel-note">Strongest verified advantage will appear here.</div>
-          </div>
-          <div class="intel injury">
-            <div class="intel-label">Key Injuries</div>
-            <div class="intel-value">Report pending</div>
-            <div class="intel-note">Important absences and game status will appear here.</div>
-          </div>
-          <div class="intel">
-            <div class="intel-label">Recent Form</div>
-            <div class="intel-value">Season data pending</div>
-            <div class="intel-note">Last 5 performance and recent efficiency.</div>
-          </div>
-          <div class="intel">
-            <div class="intel-label">Head-to-Head · Last 5</div>
-            <div class="intel-value">Historical data pending</div>
-            <div class="intel-note">Five most recent meetings, weighted as supporting context.</div>
-          </div>
-        </div>
-        <div class="why"><h3>Analysis not published yet</h3><p>Pick, confidence and game-day evidence will appear after the prediction pipeline passes execution and backtesting.</p></div>
-        <div class="factors"><span class="factor">Team Strength</span><span class="factor">Rest / Location</span><span class="factor">Lineup</span><span class="factor">Matchup Style</span></div>
-      </div>
-    </article>
-
-    <article class="game-card">
-      <div class="game-header"><span>Sun · Oct 4 · 7:00 PM ET</span><span>Preseason · Boulder</span></div>
-      <div class="matchup">
-        <div class="team"><div class="team-left"><div class="team-logo"><img src="https://cdn.nba.com/logos/nba/1610612762/primary/L/logo.svg" alt="UTA logo"></div><div><div class="team-name">Utah Jazz</div><div class="team-record">Listed Away</div></div></div><div class="location">2026–27</div></div>
-        <div class="versus">VS</div>
-        <div class="team"><div class="team-left"><div class="team-logo"><img src="https://cdn.nba.com/logos/nba/1610612743/primary/L/logo.svg" alt="DEN logo"></div><div><div class="team-name">Denver Nuggets</div><div class="team-record">Listed Home</div></div></div><div class="location">2026–27</div></div>
-      </div>
-      <div class="analysis">
-        <div class="pick-panel">
-          <div class="pick-label">Prediction Status</div>
-          <div class="pick-row"><div class="pick-team pending">Pending model test</div><div class="confidence medium">PENDING</div></div>
-          <div class="edge-note">No official pick has been issued</div>
-        </div>
-        <div class="intel-grid">
-          <div class="intel edge">
-            <div class="intel-label">Key Edge</div>
-            <div class="intel-value">Pending model data</div>
-            <div class="intel-note">Strongest verified advantage will appear here.</div>
-          </div>
-          <div class="intel injury">
-            <div class="intel-label">Key Injuries</div>
-            <div class="intel-value">Report pending</div>
-            <div class="intel-note">Important absences and game status will appear here.</div>
-          </div>
-          <div class="intel">
-            <div class="intel-label">Recent Form</div>
-            <div class="intel-value">Season data pending</div>
-            <div class="intel-note">Last 5 performance and recent efficiency.</div>
-          </div>
-          <div class="intel">
-            <div class="intel-label">Head-to-Head · Last 5</div>
-            <div class="intel-value">Historical data pending</div>
-            <div class="intel-note">Five most recent meetings, weighted as supporting context.</div>
-          </div>
-        </div>
-        <div class="why"><h3>Analysis not published yet</h3><p>Pick, confidence and game-day evidence will appear after the prediction pipeline passes execution and backtesting.</p></div>
-        <div class="factors"><span class="factor">Team Strength</span><span class="factor">Rest / Location</span><span class="factor">Lineup</span><span class="factor">Matchup Style</span></div>
-      </div>
-    </article>
-
-    <article class="game-card">
-      <div class="game-header"><span>Sun · Oct 4 · 7:00 PM ET</span><span>Preseason · Honolulu</span></div>
-      <div class="matchup">
-        <div class="team"><div class="team-left"><div class="team-logo"><img src="https://cdn.nba.com/logos/nba/1610612744/primary/L/logo.svg" alt="GSW logo"></div><div><div class="team-name">Golden State Warriors</div><div class="team-record">Listed Away</div></div></div><div class="location">2026–27</div></div>
-        <div class="versus">VS</div>
-        <div class="team"><div class="team-left"><div class="team-logo"><img src="https://cdn.nba.com/logos/nba/1610612746/primary/L/logo.svg" alt="LAC logo"></div><div><div class="team-name">LA Clippers</div><div class="team-record">Listed Home</div></div></div><div class="location">2026–27</div></div>
-      </div>
-      <div class="analysis">
-        <div class="pick-panel">
-          <div class="pick-label">Prediction Status</div>
-          <div class="pick-row"><div class="pick-team pending">Pending model test</div><div class="confidence medium">PENDING</div></div>
-          <div class="edge-note">No official pick has been issued</div>
-        </div>
-        <div class="intel-grid">
-          <div class="intel edge">
-            <div class="intel-label">Key Edge</div>
-            <div class="intel-value">Pending model data</div>
-            <div class="intel-note">Strongest verified advantage will appear here.</div>
-          </div>
-          <div class="intel injury">
-            <div class="intel-label">Key Injuries</div>
-            <div class="intel-value">Report pending</div>
-            <div class="intel-note">Important absences and game status will appear here.</div>
-          </div>
-          <div class="intel">
-            <div class="intel-label">Recent Form</div>
-            <div class="intel-value">Season data pending</div>
-            <div class="intel-note">Last 5 performance and recent efficiency.</div>
-          </div>
-          <div class="intel">
-            <div class="intel-label">Head-to-Head · Last 5</div>
-            <div class="intel-value">Historical data pending</div>
-            <div class="intel-note">Five most recent meetings, weighted as supporting context.</div>
-          </div>
-        </div>
-        <div class="why"><h3>Analysis not published yet</h3><p>Pick, confidence and game-day evidence will appear after the prediction pipeline passes execution and backtesting.</p></div>
-        <div class="factors"><span class="factor">Team Strength</span><span class="factor">Rest / Location</span><span class="factor">Lineup</span><span class="factor">Matchup Style</span></div>
-      </div>
-    </article>
-  </main>
-
-  <section id="results" class="results">
-    <h2>Pick Results</h2>
-    <p>Once real picks begin, completed games will be recorded here so we can measure the tool's actual performance.</p>
-    <div class="empty">No official picks have been graded yet.</div>
-  </section>
-
-  <section id="about" class="about">
-    <h2>About NBA Picks</h2>
-    <p>NBA Picks is a simple prediction tool that answers one question: who do we pick to win, and why? The goal is clear, evidence-based matchup analysis — not a betting platform.</p>
-  </section>
+<div class="dashboard">
+ <div class="stat"><div class="stat-icon">🏆</div><strong>0-0</strong><span>Record</span></div>
+ <div class="stat"><div class="stat-icon">◎</div><strong>—</strong><span>Accuracy</span></div>
+ <div class="stat"><div class="stat-icon">▣</div><strong>3</strong><span>Upcoming Games</span></div>
 </div>
 
+<div class="tabs"><button class="tab active" onclick="showTab('games',this)">Upcoming</button><button class="tab" onclick="showTab('results',this)">Results</button><button class="tab" onclick="showTab('about',this)">About</button></div>
+<div class="demo-note"><strong>Real schedule:</strong> these are upcoming 2026–27 preseason matchups. Predictions remain locked until the model is tested and validated.</div>
+
+<main id="games" class="section">
+<div class="section-title"><h2>Upcoming Games</h2><span>Official schedule ›</span></div>
+
+<article class="game-card">
+ <div class="game-header"><span>Sat · Oct 3 · 7:00 PM ET</span><span>Preseason · Quebec City</span></div>
+ <div class="matchup">
+  <div class="team"><div class="team-left"><div class="team-logo"><img src="https://cdn.nba.com/logos/nba/1610612748/primary/L/logo.svg" alt="MIA logo"></div><div><div class="team-name">Miami Heat</div><div class="team-record">Listed Away</div></div></div><div class="location">2026–27</div></div>
+  <div class="versus">VS</div>
+  <div class="team"><div class="team-left"><div class="team-logo"><img src="https://cdn.nba.com/logos/nba/1610612761/primary/L/logo.svg" alt="TOR logo"></div><div><div class="team-name">Toronto Raptors</div><div class="team-record">Listed Home</div></div></div><div class="location">2026–27</div></div>
+ </div>
+ <div class="analysis">
+  <div class="pick-panel"><div class="pick-label">Prediction Status</div><div class="pick-row"><div class="pick-team pending">Pending model test</div><div class="confidence">PENDING</div></div><div class="edge-note">No official pick has been issued</div></div>
+  <div class="intel-grid">
+   <div class="intel edge"><div class="intel-label">Key Edge</div><div class="intel-value">Pending model data</div><div class="intel-note">Strongest verified advantage will appear here.</div></div>
+   <div class="intel injury"><div class="intel-label">Key Injuries</div><div class="intel-value">Report pending</div><div class="intel-note">Important absences and game status.</div></div>
+   <div class="intel"><div class="intel-label">Recent Form</div><div class="intel-value">Season data pending</div><div class="intel-note">Last 5 performance.</div></div>
+   <div class="intel"><div class="intel-label">H2H · Last 5</div><div class="intel-value">Historical data pending</div><div class="intel-note">Five most recent meetings.</div></div>
+  </div>
+  <div class="why"><h3>Analysis not published yet</h3><p>Pick, confidence and game-day evidence will appear after the prediction pipeline passes execution and backtesting.</p></div>
+  <div class="factors"><span class="factor">Team Strength</span><span class="factor">Rest / Location</span><span class="factor">Lineup</span><span class="factor">Matchup Style</span></div>
+ </div>
+</article>
+
+<article class="game-card">
+ <div class="game-header"><span>Sun · Oct 4 · 7:00 PM ET</span><span>Preseason · Boulder</span></div>
+ <div class="matchup">
+  <div class="team"><div class="team-left"><div class="team-logo"><img src="https://cdn.nba.com/logos/nba/1610612762/primary/L/logo.svg" alt="UTA logo"></div><div><div class="team-name">Utah Jazz</div><div class="team-record">Listed Away</div></div></div><div class="location">2026–27</div></div>
+  <div class="versus">VS</div>
+  <div class="team"><div class="team-left"><div class="team-logo"><img src="https://cdn.nba.com/logos/nba/1610612743/primary/L/logo.svg" alt="DEN logo"></div><div><div class="team-name">Denver Nuggets</div><div class="team-record">Listed Home</div></div></div><div class="location">2026–27</div></div>
+ </div>
+ <div class="analysis">
+  <div class="pick-panel"><div class="pick-label">Prediction Status</div><div class="pick-row"><div class="pick-team pending">Pending model test</div><div class="confidence">PENDING</div></div><div class="edge-note">No official pick has been issued</div></div>
+  <div class="intel-grid">
+   <div class="intel edge"><div class="intel-label">Key Edge</div><div class="intel-value">Pending model data</div><div class="intel-note">Strongest verified advantage will appear here.</div></div>
+   <div class="intel injury"><div class="intel-label">Key Injuries</div><div class="intel-value">Report pending</div><div class="intel-note">Important absences and game status.</div></div>
+   <div class="intel"><div class="intel-label">Recent Form</div><div class="intel-value">Season data pending</div><div class="intel-note">Last 5 performance.</div></div>
+   <div class="intel"><div class="intel-label">H2H · Last 5</div><div class="intel-value">Historical data pending</div><div class="intel-note">Five most recent meetings.</div></div>
+  </div>
+  <div class="why"><h3>Analysis not published yet</h3><p>Pick, confidence and game-day evidence will appear after the prediction pipeline passes execution and backtesting.</p></div>
+  <div class="factors"><span class="factor">Team Strength</span><span class="factor">Rest / Location</span><span class="factor">Lineup</span><span class="factor">Matchup Style</span></div>
+ </div>
+</article>
+
+<article class="game-card">
+ <div class="game-header"><span>Sun · Oct 4 · 7:00 PM ET</span><span>Preseason · Honolulu</span></div>
+ <div class="matchup">
+  <div class="team"><div class="team-left"><div class="team-logo"><img src="https://cdn.nba.com/logos/nba/1610612744/primary/L/logo.svg" alt="GSW logo"></div><div><div class="team-name">Golden State Warriors</div><div class="team-record">Listed Away</div></div></div><div class="location">2026–27</div></div>
+  <div class="versus">VS</div>
+  <div class="team"><div class="team-left"><div class="team-logo"><img src="https://cdn.nba.com/logos/nba/1610612746/primary/L/logo.svg" alt="LAC logo"></div><div><div class="team-name">LA Clippers</div><div class="team-record">Listed Home</div></div></div><div class="location">2026–27</div></div>
+ </div>
+ <div class="analysis">
+  <div class="pick-panel"><div class="pick-label">Prediction Status</div><div class="pick-row"><div class="pick-team pending">Pending model test</div><div class="confidence">PENDING</div></div><div class="edge-note">No official pick has been issued</div></div>
+  <div class="intel-grid">
+   <div class="intel edge"><div class="intel-label">Key Edge</div><div class="intel-value">Pending model data</div><div class="intel-note">Strongest verified advantage will appear here.</div></div>
+   <div class="intel injury"><div class="intel-label">Key Injuries</div><div class="intel-value">Report pending</div><div class="intel-note">Important absences and game status.</div></div>
+   <div class="intel"><div class="intel-label">Recent Form</div><div class="intel-value">Season data pending</div><div class="intel-note">Last 5 performance.</div></div>
+   <div class="intel"><div class="intel-label">H2H · Last 5</div><div class="intel-value">Historical data pending</div><div class="intel-note">Five most recent meetings.</div></div>
+  </div>
+  <div class="why"><h3>Analysis not published yet</h3><p>Pick, confidence and game-day evidence will appear after the prediction pipeline passes execution and backtesting.</p></div>
+  <div class="factors"><span class="factor">Team Strength</span><span class="factor">Rest / Location</span><span class="factor">Lineup</span><span class="factor">Matchup Style</span></div>
+ </div>
+</article>
+</main>
+
+<section id="results" class="results"><h2>Pick Results</h2><p>Once real picks begin, completed games will be recorded here so we can measure the tool's actual performance.</p><div class="empty">No official picks have been graded yet.</div></section>
+<section id="about" class="about"><h2>About NBA Picks</h2><p>NBA Picks is a simple prediction tool that answers one question: who do we pick to win, and why? The goal is clear, evidence-based matchup analysis — not a betting platform.</p></section>
+</div>
 <script>
-  function showTab(tabName,button){
-    document.getElementById('games').style.display='none';
-    document.getElementById('results').style.display='none';
-    document.getElementById('about').style.display='none';
-    document.getElementById(tabName).style.display='block';
-    document.querySelectorAll('.tab').forEach(tab=>tab.classList.remove('active'));
-    button.classList.add('active');
-  }
+function showTab(tabName,button){
+ document.getElementById('games').style.display='none';
+ document.getElementById('results').style.display='none';
+ document.getElementById('about').style.display='none';
+ document.getElementById(tabName).style.display='block';
+ document.querySelectorAll('.tab').forEach(tab=>tab.classList.remove('active'));
+ button.classList.add('active');
+}
 </script>
 </body>
 </html>
