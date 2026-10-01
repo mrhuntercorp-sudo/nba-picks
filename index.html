@@ -187,6 +187,21 @@ header{padding:20px 18px 17px;background:rgba(2,9,23,.94);border-bottom:1px soli
  .hero-nba-art:after{content:"NBA";right:34px!important;top:107px!important;font-size:10px!important;font-weight:900!important}
  .hero-ball{font-size:62px!important;right:-11px!important;bottom:18px!important;z-index:5!important}
 }
+
+/* Hero cleanup: remove legacy circle + verticalize NBA artwork */
+@media(max-width:520px){
+ .hero:before{display:none!important;content:none!important;background:none!important}
+ .hero-nba-art{width:30%!important}
+ .hero-nba-logo{
+   width:46px!important;height:101px!important;right:30px!important;top:28px!important;
+   object-fit:cover!important;object-position:left center!important;
+ }
+ .hero-nba-art:after{
+   content:"NBA"!important;right:35px!important;top:105px!important;
+   font-size:10px!important;font-weight:900!important;line-height:1!important;color:#fff!important;
+ }
+ .hero-ball{font-size:61px!important;right:-10px!important;bottom:18px!important;z-index:5!important}
+}
 </style>
 </head>
 <body>
