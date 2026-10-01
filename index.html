@@ -98,6 +98,14 @@ header{padding:20px 18px 17px;background:rgba(2,9,23,.94);border-bottom:1px soli
 
 /* Header crown alignment — approved isolated adjustment */
 .crown{transform:translateY(-5px)}
+
+/* Hero NBA artwork — isolated visual addition */
+.hero{min-height:245px}
+.hero-copy{position:relative;z-index:2;max-width:72%}
+.hero-nba-art{position:absolute;z-index:1;right:0;top:0;width:36%;height:100%;pointer-events:none}
+.hero-nba-logo{position:absolute;width:72px;height:145px;object-fit:contain;right:34px;top:38px;filter:drop-shadow(0 5px 12px rgba(0,0,0,.22))}
+.hero-ball{position:absolute;right:-35px;bottom:-21px;font-size:132px;line-height:1;transform:rotate(-16deg);filter:drop-shadow(-10px -5px 14px rgba(36,15,4,.38))}
+@media(max-width:520px){.hero{min-height:190px}.hero-copy{max-width:72%}.hero-nba-art{width:38%}.hero-nba-logo{width:58px;height:116px;right:25px;top:31px}.hero-ball{font-size:102px;right:-31px;bottom:-17px}}
 </style>
 </head>
 <body>
@@ -107,7 +115,7 @@ header{padding:20px 18px 17px;background:rgba(2,9,23,.94);border-bottom:1px soli
   <div class="record">Season <strong>2026–27</strong><span class="season-chevron">⌄</span></div>
 </div></header>
 
-<div class="hero"><small>🏀 UPCOMING NBA GAMES</small><h1>The 2026–27 season<br>starts here.</h1><p>Real upcoming NBA matchups are now on the board. Predictions will activate after the model passes execution testing.</p></div>
+<div class="hero"><div class="hero-copy"><small>🏀 UPCOMING NBA GAMES</small><h1>The 2026–27 season<br>starts here.</h1><p>Real upcoming NBA matchups are now on the board. Predictions will activate after the model passes execution testing.</p></div><div class="hero-nba-art" aria-hidden="true"><img class="hero-nba-logo" src="https://cdn.nba.com/logos/leagues/logo-nba.svg" alt=""><div class="hero-ball">🏀</div></div></div>
 
 <div class="dashboard">
  <div class="stat"><div class="stat-icon">🏆</div><strong>0-0</strong><span>Record</span></div>
